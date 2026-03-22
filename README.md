@@ -1,5 +1,9 @@
 # .envCove
 
+
+![image](Assets.xcassets/icon.appiconset/icon_secret-macOS-Default-512x512@1x.png)
+
+
 A native macOS app for managing API keys and secrets, organized by project and provider. All secret values are stored exclusively in the macOS Keychain and access is gated behind Touch ID / biometric authentication.
 
 ![Platform](https://img.shields.io/badge/platform-macOS%2013%2B-blue)
@@ -7,28 +11,26 @@ A native macOS app for managing API keys and secrets, organized by project and p
 ![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-blue)
 ![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
 
+
+
+
+
 ---
 
 ## Features
 
 - **Touch ID lock screen** — the app requires biometric authentication on launch. Sensitive operations (revealing values, exporting) require re-authentication.
-- **Projects** — organize secrets into multiple named workspaces.
-- **Providers** — group secrets within a project by provider (OpenAI, AWS, GitHub, Stripe, etc.) with SF Symbol icons.
+- **Projects/Providers** — organize secrets into multiple named workspaces or API providers.
 - **Dashboard** — per-project cards showing total key count and provider count.
-- **Sidebar navigation** — browse by project or filter by provider across all projects.
-- **Masked values** — secret values are always hidden behind `•••••••••` until explicitly revealed.
 - **Reveal / hide all** — toolbar toggle to show all values at once (requires Touch ID).
 - **Copy to clipboard** — hover over a row to reveal copy buttons.
 - **Add / Edit / Delete** — full CRUD for secrets, providers, and projects.
-- **Inline renaming** — double-click a project or provider to rename it in place.
-- **Move secrets** — reassign a secret to a different provider via context menu.
-- **Collapsible provider sections** — keep the detail view clean.
-- **Export `.env`** — saves all keys as `KEY=VALUE` lines (Touch ID required).
-- **Import `.env`** — parses `.env` files, including `export KEY=VALUE` syntax, quoted values, and comments.
-- **Export JSON** (`⌘⇧E`) — structured JSON export with project, provider, key, and value (Touch ID required).
-- **Import JSON** (`⌘⇧I`) — re-import a previously exported JSON file into any project (Touch ID required).
+- **Export and import `.env`** — saves all keys as `KEY=VALUE` lines (Touch ID required).
+- **Export import JSON** (`⌘⇧E`) — structured JSON export with project, provider, key, and value (Touch ID required).
 - **Custom provider icons** — pick from 36 SF Symbol options for custom providers.
 
+
+![image](docs/assets/screenshot-1.png)
 ---
 
 ## Security Model
@@ -44,18 +46,6 @@ Secret values are loaded into memory only after a successful Touch ID authentica
 
 Value masking uses a fixed-length string (`•••••••••`) regardless of the actual secret length to avoid leaking length information.
 
----
-
-## Built-in Providers
-
-| Provider | | Provider | |
-|---|---|---|---|
-| OpenAI | ✓ | Stripe | ✓ |
-| Anthropic | ✓ | Twilio | ✓ |
-| Google AI | ✓ | Mapbox | ✓ |
-| AWS | ✓ | Supabase | ✓ |
-| Azure | ✓ | Custom | ✓ |
-| GitHub | ✓ | | |
 
 ---
 
