@@ -8,6 +8,7 @@
 
 A native macOS app for managing API keys and secrets, organized by project and provider. All secret values are stored exclusively in the macOS Keychain and access is gated behind Touch ID / biometric authentication.
 
+[![Website](https://img.shields.io/badge/website-live-brightgreen)](https://danielbustillos.github.io/envcove/)
 ![Platform](https://img.shields.io/badge/platform-macOS%2013%2B-blue)
 ![Swift](https://img.shields.io/badge/Swift-5.9-orange)
 ![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-blue)
