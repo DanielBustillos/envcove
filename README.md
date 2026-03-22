@@ -30,7 +30,7 @@ A native macOS app for managing API keys and secrets, organized by project and p
 - **Custom provider icons** — pick from 36 SF Symbol options for custom providers.
 
 
-![image](docs/assets/screenshot-1.png)
+![image](docs/assets/screenshot-main.png)
 ---
 
 ## Security Model
