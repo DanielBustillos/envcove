@@ -119,12 +119,22 @@ No Swift Package Manager packages, CocoaPods, or Carthage.
 
 ## Getting Started
 
+### Option A — Download the app (recommended)
+
+1. Go to the [Releases page](https://github.com/DanielBustillos/envcove/releases).
+2. Download the latest `.app` from the Assets section.
+3. Move `.envCove.app` to your `/Applications` folder and open it.
+
+> macOS may show a security prompt on first launch. Go to **System Settings → Privacy & Security** and click **Open Anyway**.
+
+### Option B — Build from source
+
 1. Clone the repository.
 2. Open `envCove.xcodeproj` in Xcode (or regenerate it with [XcodeGen](https://github.com/yonaskolb/XcodeGen): `xcodegen generate`).
 3. Select the `SecretManager` scheme and your Mac as the run destination.
 4. Build and run (`⌘R`).
 
-No additional setup is required — the app creates its data directory automatically on first launch.
+No additional setup is required — the app creates its data directory automatically on first launch.tomatically on first launch.
 
 ---
 
