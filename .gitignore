@@ -1,0 +1,87 @@
+# ========================
+# macOS
+# ========================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ========================
+# Xcode
+# ========================
+build/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+*.xcsettings
+
+# Xcode Simulator
+iOSSimulator.simdevice
+
+# ========================
+# Swift Package Manager
+# ========================
+.build/
+.swiftpm/
+Package.resolved
+
+# ========================
+# CocoaPods
+# ========================
+Pods/
+*.xcworkspace
+!default.xcworkspace
+
+# ========================
+# Carthage
+# ========================
+Carthage/Build/
+
+# ========================
+# fastlane
+# ========================
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# ========================
+# Environment / Secrets
+# ========================
+.env
+.env.*
+*.pem
+*.key
+secrets.json
+credentials.json
+
+# ========================
+# Archive / build artifacts
+# ========================
+*.ipa
+*.dSYM.zip
+*.dSYM
