@@ -1,7 +1,9 @@
 # .envCove
 
 
-![image](Assets.xcassets/icon.appiconset/icon_secret-macOS-Default-512x512@1x.png)
+<p align="center">
+  <img src="Assets.xcassets/icon.appiconset/icon_secret-macOS-Default-512x512@1x.png" width="300" height="300">
+</p>
 
 
 A native macOS app for managing API keys and secrets, organized by project and provider. All secret values are stored exclusively in the macOS Keychain and access is gated behind Touch ID / biometric authentication.
