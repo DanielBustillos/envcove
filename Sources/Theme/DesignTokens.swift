@@ -23,8 +23,7 @@ enum UI {
     static let sidebarListRowTrailing: CGFloat = 12
     /// Fixed-width mask when the secret is hidden (does not reveal stored length).
     static func maskedSecretDisplay(for value: String) -> String {
-        guard !value.isEmpty else { return "" }
-        return String(repeating: "•", count: 9)
+        String(repeating: "•", count: 9)
     }
     static let hoverAnimation: Double = 0.16
 }

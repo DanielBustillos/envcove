@@ -197,6 +197,9 @@ struct DetailView: View {
                 .onChange(of: store.selectedSidebarProvider) { _ in
                     collapsedProviders = []
                 }
+                .onChange(of: authManager.isUnlocked) { unlocked in
+                    if !unlocked { revealAllValues = false }
+                }
             } else {
                 VStack(spacing: 8) {
                     Image(systemName: "folder")

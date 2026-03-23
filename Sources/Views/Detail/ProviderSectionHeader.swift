@@ -200,12 +200,14 @@ struct DetailToolbarContent: ToolbarContent {
 
                 Button {
                     if revealAllValues {
-                        revealAllValues.toggle()
+                        revealAllValues = false
+                    } else if authManager.isUnlocked {
+                        revealAllValues = true
                     } else {
                         Task {
                             let ok = await authManager.authenticate(reason: "Authenticate to reveal saved secrets.")
                             if ok {
-                                revealAllValues.toggle()
+                                revealAllValues = true
                             }
                         }
                     }
