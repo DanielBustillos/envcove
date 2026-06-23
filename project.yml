@@ -1,4 +1,4 @@
-name: SecretManager
+name: envCove
 options:
   bundleIdPrefix: com.daniel
   deploymentTarget:
@@ -12,7 +12,7 @@ settings:
     MACOSX_DEPLOYMENT_TARGET: "13.0"
 
 targets:
-  SecretManager:
+  envCove:
     type: application
     platform: macOS
     deploymentTarget: "13.0"
@@ -23,7 +23,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.daniel.secretmanager
-        PRODUCT_NAME: SecretManager
+        PRODUCT_NAME: envCove
         MACOSX_DEPLOYMENT_TARGET: "13.0"
         SWIFT_VERSION: "5.9"
         ASSETCATALOG_COMPILER_APPICON_NAME: icon
@@ -34,14 +34,14 @@ targets:
     info:
       path: Info.plist
       properties:
-        CFBundleName: .envCove
-        CFBundleDisplayName: .envCove
+        CFBundleName: envCove
+        CFBundleDisplayName: envCove
         CFBundleIdentifier: com.daniel.secretmanager
         CFBundleShortVersionString: "1.0"
         CFBundleVersion: "1"
         CFBundlePackageType: APPL
-        CFBundleExecutable: SecretManager
+        CFBundleExecutable: envCove
         LSMinimumSystemVersion: "13.0"
         NSPrincipalClass: NSApplication
-        NSFaceIDUsageDescription: "SecretManager uses Touch ID to protect your secrets."
+        NSFaceIDUsageDescription: "envCove uses Touch ID to protect your secrets."
         NSHumanReadableCopyright: ""

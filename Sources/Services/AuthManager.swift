@@ -8,7 +8,7 @@ final class AuthManager: ObservableObject {
     @Published var isAuthenticating = false
     @Published var lastErrorMessage: String?
 
-    /// The authenticated LAContext reused by KeychainStore to avoid a second Touch ID prompt.
+    /// Reused by VaultKeychain to avoid a second Touch ID prompt when loading the DEK.
     private(set) var context: LAContext?
 
     // MARK: - Auto-lock

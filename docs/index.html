@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>.envCove — API key vault for Mac</title>
-  <meta name="description" content="A native macOS app for managing API keys and secrets. Secured by Touch ID and the macOS Keychain." />
+  <meta name="description" content="A native macOS app for managing API keys and secrets. Encrypted vault with Touch ID and Keychain-protected encryption key." />
   <meta property="og:title" content=".envCove" />
   <meta property="og:description" content="API key vault for Mac. Touch ID protected. Zero cloud. Zero dependencies." />
   <meta property="og:image" content="assets/icon.png" />
@@ -538,12 +538,12 @@
 <section class="hero">
   <div class="hero-badge">
     <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1a3 3 0 0 0-3 3v.5H2.5a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V5a.5.5 0 0 0-.5-.5H9V4a3 3 0 0 0-3-3zm0 1a2 2 0 0 1 2 2v.5H4V4a2 2 0 0 1 2-2zm0 5a.75.75 0 1 1 0 1.5A.75.75 0 0 1 6 7z"/></svg>
-    Native Keychain Secret Manager
+    Native Local Secret Manager
   </div>
 
   <h1>Your API keys.<br/><em>Locked down. Always.</em></h1>
 
-  <p>A native macOS vault for your API keys and secrets — organized by project, secured by Touch ID and the macOS Keychain. No cloud. No subscriptions. No nonsense.</p>
+  <p>A native macOS vault for your API keys and secrets — organized by project, gated by Touch ID, encrypted at rest. No cloud. No subscriptions. No nonsense.</p>
 
   <div class="hero-cta">
     <a href="https://github.com/DanielBustillos/envcove/releases" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
@@ -575,7 +575,7 @@
     </div>
     <div class="stat-item">
       <div class="stat-num">100%</div>
-      <div class="stat-label">Stored in Keychain</div>
+      <div class="stat-label">Encrypted at rest</div>
     </div>
   </div>
 </section>
@@ -601,8 +601,8 @@
         <div class="feature-icon" style="background:rgba(40,205,65,0.1);color:#1a9e30">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
-        <h3>Keychain Storage</h3>
-        <p>Secret values never touch the filesystem. They live exclusively in the macOS Keychain and are flushed back on every app suspend or quit.</p>
+        <h3>Encrypted Vault</h3>
+        <p>Projects and secrets are stored in an AES-GCM encrypted vault. The encryption key lives in the macOS Keychain, unlocked by Touch ID.</p>
       </div>
 
       <div class="feature-card">
@@ -650,16 +650,16 @@
           <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1a3 3 0 0 0-3 3v.5H2.5a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V5a.5.5 0 0 0-.5-.5H9V4a3 3 0 0 0-3-3zm0 1a2 2 0 0 1 2 2v.5H4V4a2 2 0 0 1 2-2zm0 5a.75.75 0 1 1 0 1.5A.75.75 0 0 1 6 7z"/></svg>
           Security Model
         </div>
-        <h2 class="section-title">Metadata and secrets never share the same store.</h2>
-        <p class="section-sub" style="margin-bottom:0">Project names, key names, and provider info are stored as JSON. The actual secret values? Only in the macOS Keychain — ever.</p>
+        <h2 class="section-title">Encrypted on disk. Unlocked by you.</h2>
+        <p class="section-sub" style="margin-bottom:0">Your data lives in <code>projects.vault</code> — encrypted with AES-GCM. The key? In the macOS Keychain, protected by Touch ID.</p>
       </div>
 
       <div class="security-diagram">
         <div class="sec-row">
           <div class="sec-icon" style="background:rgba(0,113,227,0.08);color:var(--accent)">📄</div>
           <div class="sec-row-text">
-            <h4>projects.json</h4>
-            <p>Key names · Provider info · Project names<br/>Stored in ~/Library/Application Support</p>
+            <h4>projects.vault</h4>
+            <p>Encrypted projects · keys · secret values<br/>~/Library/Application Support/envCove</p>
           </div>
         </div>
 
@@ -668,8 +668,8 @@
         <div class="sec-row" style="border-color:rgba(40,205,65,0.2)">
           <div class="sec-icon" style="background:rgba(40,205,65,0.1);color:#1a9e30">🔐</div>
           <div class="sec-row-text">
-            <h4>macOS Keychain</h4>
-            <p>Secret values only · Encrypted at rest<br/>Accessed via Touch ID authentication</p>
+            <h4>Keychain DEK</h4>
+            <p>256-bit encryption key · Biometric-protected<br/>Unlocked via Touch ID</p>
           </div>
         </div>
 
@@ -714,7 +714,7 @@
     <img src="assets/icon.png" alt=".envCove icon" />
     .envCove
   </div>
-  <p>.envCove · Built with SwiftUI · Secured by the macOS Keychain</p>
+  <p>.envCove · Built with SwiftUI · Encrypted vault · Touch ID</p>
   <p>© 2026 Daniel Bustillos. All rights reserved.</p>
 </footer>
 

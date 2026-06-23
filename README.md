@@ -6,7 +6,7 @@
 </p>
 
 
-A native macOS app for managing API keys and secrets, organized by project and provider. All secret values are stored exclusively in the macOS Keychain and access is gated behind Touch ID / biometric authentication.
+A native macOS app for managing API keys and secrets, organized by project and provider. All data is stored locally in JSON and access is gated behind Touch ID / biometric authentication.
 
 [![Website](https://img.shields.io/badge/website-live-brightgreen)](https://danielbustillos.github.io/envcove/)
 ![Platform](https://img.shields.io/badge/platform-macOS%2013%2B-blue)
@@ -38,16 +38,18 @@ A native macOS app for managing API keys and secrets, organized by project and p
 
 ## Security Model
 
-SecretManager deliberately separates **metadata** from **secret values**:
+Project data is stored in an **encrypted vault** on disk. A 256-bit Data Encryption Key (DEK) lives in the macOS Keychain, protected by Touch ID.
 
 | What | Where stored |
 |---|---|
-| Project names, key names, provider info | `~/Library/Application Support/SecretManager/projects.json` |
-| Secret values | macOS **Keychain** only — never written to disk in plaintext |
+| Encrypted vault (projects, keys, values) | `~/Library/Application Support/envCove/projects.vault` |
+| Data Encryption Key | macOS Keychain (`vault-dek`, biometric-protected) |
 
-Secret values are loaded into memory only after a successful Touch ID authentication and are flushed back to the Keychain whenever the app goes to background or terminates.
+Touch ID unlocks the DEK and decrypts the vault into memory. When the app locks, in-memory data is cleared. Sensitive operations (reveal, export) require re-authentication.
 
 Value masking uses a fixed-length string (`•••••••••`) regardless of the actual secret length to avoid leaking length information.
+
+> **Note:** The DEK is bound to this Mac's biometrics and does not transfer to other devices. Use JSON export as a portable backup.
 
 
 ---
@@ -73,9 +75,12 @@ SecretManagerApp (@main)
 
 | Layer | Type | Role |
 |---|---|---|
-| `AppStore` | `@MainActor ObservableObject` | Single source of truth; all state and mutation logic |
+| `AppStore` | `@MainActor ObservableObject` | Single source of truth; vault encrypt/decrypt, import/export |
 | `AuthManager` | `@MainActor ObservableObject` | Biometric auth via `LocalAuthentication` |
-| `KeychainStore` | `struct` | Wraps `Security` framework; one Keychain blob per project |
+| `VaultCrypto` | `enum` | AES-GCM encryption of project data |
+| `VaultKeychain` | `enum` | DEK storage in Keychain with biometrics |
+| `AppSupportMigration` | `enum` | Folder rename + plaintext-to-vault migration |
+| `KeychainMigration` | `enum` | One-time migration from legacy Keychain storage |
 | Models | `Codable struct` | `Project`, `SecretEntry`, `ProviderPreset`, `ExportModels` |
 | Views | `SwiftUI View` | Observe `AppStore`; receive `AuthManager` via `@EnvironmentObject` |
 
@@ -90,7 +95,7 @@ secret_manager/
 │   ├── App/            — entry point, root view, scene lifecycle
 │   ├── Components/     — reusable UI primitives
 │   ├── Models/         — Codable data types
-│   ├── Services/       — AppStore, AuthManager, KeychainStore
+│   ├── Services/       — AppStore, AuthManager, VaultCrypto, VaultKeychain
 │   ├── Theme/          — design tokens and color palette
 │   ├── Utilities/      — notifications, debug logger
 │   └── Views/
@@ -111,6 +116,7 @@ secret_manager/
 - `SwiftUI` / `AppKit`
 - `Foundation`
 - `LocalAuthentication`
+- `CryptoKit`
 - `Security`
 
 No Swift Package Manager packages, CocoaPods, or Carthage.
@@ -134,7 +140,7 @@ No Swift Package Manager packages, CocoaPods, or Carthage.
 3. Select the `SecretManager` scheme and your Mac as the run destination.
 4. Build and run (`⌘R`).
 
-No additional setup is required — the app creates its data directory automatically on first launch.tomatically on first launch.
+No additional setup is required — the app creates its data directory automatically on first launch.
 
 ---
 

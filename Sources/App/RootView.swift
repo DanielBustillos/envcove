@@ -8,7 +8,7 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if authManager.isUnlocked {
+            if authManager.isUnlocked && store.isVaultReady {
                 NavigationSplitView(columnVisibility: $splitColumnVisibility) {
                     SidebarView(store: store)
                         .navigationSplitViewColumnWidth(min: 220, ideal: 260)
@@ -18,9 +18,6 @@ struct RootView: View {
                 /// Transparent so the left column's sidebar material runs through the toolbar strip (above the white detail fill).
                 .toolbarBackground(.hidden, for: .windowToolbar)
                 .environmentObject(authManager)
-                .task {
-                    store.prepareSecretsFromKeychainIfNeeded(context: authManager.context)
-                }
             } else {
                 ZStack {
                     Color(nsColor: .windowBackgroundColor)
@@ -41,7 +38,7 @@ struct RootView: View {
                             .foregroundStyle(Theme.systemAccent)
                         Text("Unlock .envCove")
                             .font(.headline)
-                        if let error = authManager.lastErrorMessage {
+                        if let error = authManager.lastErrorMessage ?? store.lastVaultError {
                             Text(error)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
@@ -68,21 +65,34 @@ struct RootView: View {
         .frame(minWidth: 900, minHeight: 580)
         .task {
             if !authManager.isUnlocked {
-                _ = await authManager.authenticate(reason: "Unlock .envCove to access your secrets.")
+                let ok = await authManager.authenticate(reason: "Unlock .envCove to access your secrets.")
+                if ok, let context = authManager.context {
+                    let vaultOk = store.unlock(context: context)
+                    if !vaultOk {
+                        authManager.lock()
+                    }
+                }
             }
         }
         .onChange(of: scenePhase) { phase in
             if phase == .inactive || phase == .background {
-                store.flushAllProjectsToKeychain(context: authManager.context)
+                store.save()
             }
         }
         .onChange(of: authManager.isUnlocked) { unlocked in
-            if !unlocked {
-                store.clearSecretsFromMemory()
+            if unlocked {
+                guard !store.isVaultReady, let context = authManager.context else { return }
+                let vaultOk = store.unlock(context: context)
+                if !vaultOk {
+                    authManager.lock()
+                }
+            } else {
+                store.save()
+                store.lock()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in
-            store.flushAllProjectsToKeychain(context: authManager.context)
+            store.save()
         }
     }
 }

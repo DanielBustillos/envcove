@@ -5,15 +5,15 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>.envCove</string>
+	<string>envCove</string>
 	<key>CFBundleExecutable</key>
-	<string>SecretManager</string>
+	<string>envCove</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.daniel.secretmanager</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>.envCove</string>
+	<string>envCove</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -23,7 +23,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>SecretManager uses Touch ID to protect your secrets.</string>
+	<string>envCove uses Touch ID to protect your secrets.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSPrincipalClass</key>

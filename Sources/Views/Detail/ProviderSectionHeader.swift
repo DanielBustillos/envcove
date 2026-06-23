@@ -189,14 +189,15 @@ struct DetailToolbarContent: ToolbarContent {
                 Button {
                     Task {
                         let ok = await authManager.authenticate(reason: "Re-authenticate to reload your secrets.")
-                        if ok {
-                            store.reauthenticateWithKeychain(context: authManager.context)
+                        if ok, let context = authManager.context {
+                            store.save()
+                            _ = store.unlock(context: context)
                         }
                     }
                 } label: {
                     Label("Re-authenticate", systemImage: "lock.open.rotation")
                 }
-                .help("Re-authenticate with Keychain")
+                .help("Reload secrets from encrypted vault")
 
                 Button {
                     if revealAllValues {
